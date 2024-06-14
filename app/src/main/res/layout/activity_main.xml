@@ -25,7 +25,7 @@
         android:layout_height="150dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/dinoku"
-        app:civ_border_width="10dp"
+        app:civ_border_width="2dp"
         app:civ_border_color="#ffffff"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottomToBottomOf="parent"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="35dp"
-        android:background="@color/white"
+        android:background="@drawable/concave_background"
         app:layout_constraintTop_toBottomOf="@id/login_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
