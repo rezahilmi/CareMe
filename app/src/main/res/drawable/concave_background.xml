@@ -1,0 +1,27 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Gelombang -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <path
+                android:fillColor="@color/white"
+                android:pathData="M0,0
+                                  Q50,50 100,0
+                                  T200,0
+                                  T300,0
+                                  T400,0
+                                  T500,0" />
+        </shape>
+    </item>
+    <!-- Pembatas dengan sudut bulat -->
+    <item android:top="5dp"> <!-- Sesuaikan jarak gelombang dari atas -->
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <corners
+                android:topLeftRadius="100dp"
+                android:topRightRadius="100dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="10dp" />
+        </shape>
+    </item>
+</layer-list>
