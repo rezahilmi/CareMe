@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1679AB"
-    tools:context=".view.WelcomeActivity">
+    tools:context=".view.welcome.WelcomeActivity">
 
 
     <ImageView
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.412"
-        app:srcCompat="@drawable/CareMe" />
+        app:srcCompat="@drawable/care_me" />
 
     <TextView
         android:id="@+id/titleTextView"

@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.result.ResultActivity"
     android:background="#1679AB">
 
+    <!-- Result TextView -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
@@ -22,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Dino ImageView -->
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="200dp"
@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         tools:src="@drawable/dinoku" />
 
+    <!-- Background View -->
     <View
         android:id="@+id/backgroundView"
         android:layout_width="0dp"
@@ -45,6 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
+    <!-- Disease Name TextView within Background View -->
     <TextView
         android:id="@+id/disease_text"
         android:layout_width="0dp"
@@ -60,6 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/backgroundView" />
 
+    <!-- Description Text within Background View -->
     <TextView
         android:id="@+id/result_text"
         android:layout_width="0dp"
@@ -73,6 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/disease_text" />
 
+    <!-- Button within Background View -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"

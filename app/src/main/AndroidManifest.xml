@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -11,12 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CareMe"
-        tools:targetApi="31">
-
+        tools:targetApi="31" >
         <activity
-            android:name=".view.WelcomeActivity"
-            android:exported="true">
-
+            android:name=".view.welcome.WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.history.HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.result.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.scanImage.ScanImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.recommendation.RecommendationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.authentication.AuthenticationActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

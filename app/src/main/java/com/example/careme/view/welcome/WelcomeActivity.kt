@@ -1,4 +1,4 @@
-package com.example.careme.view
+package com.example.careme.view.welcome
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
-        app:srcCompat="@drawable/CareMe" />
+        app:srcCompat="@drawable/care_me" />
 
     <TextView
         android:id="@+id/emailTextView"
