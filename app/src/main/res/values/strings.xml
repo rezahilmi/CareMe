@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CareMe</string>
     <string name="title_welcome_page">Discover Your Perfect Skincare Solution</string>
-    <string name="dashboard">Welcome\nDino</string>
+    <string name="dashboard">Welcome to CareMe</string>
     <string name="our_service">Our Services</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
@@ -22,6 +22,7 @@
     <string name="careme_logo">CareMe Logo</string>
     <string name="deskripsi">deskripsi</string>
     <string name="recommendation">Recommendation</string>
+    <string name="additional">Educational Content</string>
     <string name="nama_penyakit">Nama Penyakit</string>
     <string name="dont_have_acc">Don\'t have an account? Register</string>
     <string name="password_8_character">Password must not be less than 8 characters</string>
