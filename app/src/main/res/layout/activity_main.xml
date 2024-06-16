@@ -7,7 +7,6 @@
     android:background="@color/blue"
     tools:context=".view.main.MainActivity">
 
-    <!-- Background View with Curved Gradient -->
     <View
         android:id="@+id/backgroundView"
         android:layout_width="0dp"
@@ -20,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <!-- Login Text -->
     <TextView
         android:id="@+id/login_text"
         android:layout_width="wrap_content"
@@ -34,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Services Text -->
     <TextView
         android:id="@+id/services_text"
         android:layout_width="wrap_content"
@@ -48,7 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/login_text" />
 
-    <!-- Scan Button -->
     <Button
         android:id="@+id/scanButton"
         android:layout_width="0dp"
@@ -65,7 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/services_text" />
 
-    <!-- History Button -->
     <Button
         android:id="@+id/historyButton"
         android:layout_width="0dp"

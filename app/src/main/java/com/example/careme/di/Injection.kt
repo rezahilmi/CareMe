@@ -8,7 +8,7 @@ import com.example.careme.data.pref.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
-object Injection {
+object  Injection {
     fun provideRepository(context: Context): UserRepository = runBlocking {
 //        val database = StoryDatabase.getDatabase(context)
         val pref = UserPreference.getInstance(context.dataStore)
