@@ -41,7 +41,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:paddingStart="48dp"
+                    android:hint="@string/email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +61,9 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     tools:ignore="SpeakableTextPresentCheck"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingStart="48dp"
+                    android:hint="@string/password" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
