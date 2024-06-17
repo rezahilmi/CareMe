@@ -14,7 +14,7 @@
     <string name="result">Result</string>
     <string name="history">History</string>
     <string name="camera_x">CameraX</string>
-    <string name="camera">Kamera</string>
+    <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="analyze">Analyze</string>
     <string name="empty_image_warning">Picture Not Found!</string>
