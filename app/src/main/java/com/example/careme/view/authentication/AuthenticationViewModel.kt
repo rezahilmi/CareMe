@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.careme.data.UserRepository
-import com.example.storyapp.data.network.LoginResponse
+import com.example.careme.data.network.LoginResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

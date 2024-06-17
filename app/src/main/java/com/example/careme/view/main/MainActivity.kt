@@ -4,15 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.careme.R
-import com.example.careme.databinding.ActivityAuthenticationBinding
 import com.example.careme.databinding.ActivityMainBinding
-import com.example.careme.view.authentication.LoginBottomSheetFragment
 import com.example.careme.view.history.HistoryActivity
-import com.example.careme.view.result.ResultActivity
-import com.example.careme.view.scanImage.ScanImageActivity
+import com.example.careme.view.detection.DetectionActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding.scanButton.setOnClickListener {
-            startActivity(Intent(this, ScanImageActivity::class.java))
+            startActivity(Intent(this, DetectionActivity::class.java))
         }
         binding.historyButton.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))

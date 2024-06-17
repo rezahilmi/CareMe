@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.scanImage.ScanImageActivity"
+    tools:context=".view.detection.DetectionActivity"
     android:background="#1679AB">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -58,7 +58,7 @@
         android:backgroundTint="@color/white"
         android:textSize="15sp"
         android:textColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/button_analyze"
+        app:layout_constraintBottom_toTopOf="@+id/analyzeButton"
         app:layout_constraintEnd_toStartOf="@+id/cameraXButton"
         app:layout_constraintStart_toEndOf="@+id/galleryButton" />
 
@@ -71,7 +71,7 @@
         android:backgroundTint="@color/white"
         android:textSize="15sp"
         android:textColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/button_analyze"
+        app:layout_constraintBottom_toTopOf="@+id/analyzeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cameraButton" />
 
@@ -86,12 +86,12 @@
         android:backgroundTint="@color/white"
         android:textSize="15sp"
         android:textColor="@color/blue"
-        app:layout_constraintBottom_toTopOf="@+id/button_analyze"
+        app:layout_constraintBottom_toTopOf="@+id/analyzeButton"
         app:layout_constraintEnd_toStartOf="@+id/cameraButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_analyze"
+        android:id="@+id/analyzeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

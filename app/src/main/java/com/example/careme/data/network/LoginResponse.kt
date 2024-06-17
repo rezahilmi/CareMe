@@ -1,4 +1,4 @@
-package com.example.storyapp.data.network
+package com.example.careme.data.network
 
 import com.google.gson.annotations.SerializedName
 
