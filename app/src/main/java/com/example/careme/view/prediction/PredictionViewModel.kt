@@ -1,20 +1,9 @@
-package com.example.careme.view.detection
+package com.example.careme.view.prediction
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.careme.data.UserRepository
-import com.google.gson.Gson
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.HttpException
-import java.io.File
 
-class DetectionViewModel(private val repository: UserRepository) : ViewModel() {
+class PredictionViewModel(private val repository: UserRepository) : ViewModel() {
 //    private val _uploadResult = MutableLiveData<ResultState<UploadStoryResponse>>()
 //    val uploadResult: LiveData<ResultState<UploadStoryResponse>> = _uploadResult
 //

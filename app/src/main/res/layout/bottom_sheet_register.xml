@@ -29,19 +29,41 @@
                 android:gravity="center" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailEditTextLayout"
+                android:id="@+id/nameEditTextLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                app:startIconDrawable="@drawable/ic_baseline_person_24">
+
+                <com.example.careme.view.authentication.customView.NameEditText
+                    android:id="@+id/ed_register_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="0dp"
+                    android:hint="@string/name"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailEditTextLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:startIconDrawable="@drawable/ic_baseline_email_24">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.example.careme.view.authentication.customView.EmailEditText
                     android:id="@+id/ed_register_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="0dp"
+                    android:hint="@string/email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -53,12 +75,15 @@
                 app:endIconMode="password_toggle"
                 app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.example.careme.view.authentication.customView.PasswordEditText
                     android:id="@+id/ed_register_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="0dp"
+                    android:hint="@string/password"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -70,10 +95,11 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/button_background_color"
                 app:cornerRadius="10dp"
                 android:elevation="6dp"
                 android:layout_marginTop="25dp"
+                android:enabled="false"
                 style="@style/Widget.MaterialComponents.Button" />
 
         </LinearLayout>

@@ -2,7 +2,6 @@ package com.example.careme.data.network
 
 import android.util.Log
 import com.example.careme.BuildConfig
-import com.example.storyapp.data.network.ApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

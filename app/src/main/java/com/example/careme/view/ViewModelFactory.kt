@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.careme.data.UserRepository
 import com.example.careme.di.Injection
 import com.example.careme.view.authentication.AuthenticationViewModel
+import com.example.careme.view.prediction.PredictionViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -15,8 +16,12 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             modelClass.isAssignableFrom(AuthenticationViewModel::class.java) -> {
                 AuthenticationViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(PredictionViewModel::class.java) -> {
+                PredictionViewModel(repository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
+
     }
 
     companion object {

@@ -4,12 +4,11 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Patterns
 import com.example.careme.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class EmailEditText @JvmOverloads constructor(
+class NameEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : TextInputEditText(context, attrs) {
 
@@ -20,14 +19,12 @@ class EmailEditText @JvmOverloads constructor(
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val emailLayout = parent.parent as TextInputLayout
-                val isValid = isEmailValid(s.toString())
+                val nameLayout = parent.parent as TextInputLayout
+                val isValid = isNameValid(s.toString())
                 if (s.isNullOrEmpty()) {
-                    emailLayout.error = context.getString(R.string.email_required)
-                } else if (!isValid) {
-                    emailLayout.error = context.getString(R.string.invalid_email)
+                    nameLayout.error = context.getString(R.string.name_required)
                 } else {
-                    emailLayout.error = null
+                    nameLayout.error = null
                 }
                 listener?.invoke(isValid)
             }
@@ -36,8 +33,8 @@ class EmailEditText @JvmOverloads constructor(
         })
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun isNameValid(password: String): Boolean {
+        return password.isNotEmpty()
     }
     fun setValidityListener(listener: (Boolean) -> Unit) {
         this.listener = listener

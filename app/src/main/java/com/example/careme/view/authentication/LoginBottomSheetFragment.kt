@@ -1,6 +1,5 @@
 package com.example.careme.view.authentication
 
-import android.app.AlertDialog
 import android.content.Intent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.os.Bundle
@@ -11,15 +10,16 @@ import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.careme.R
+import com.example.careme.data.network.dataModel.LoginRequest
 import com.example.careme.databinding.BottomSheetLoginBinding
 import com.example.careme.view.ViewModelFactory
 import com.example.careme.view.main.MainActivity
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LoginBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -70,26 +70,30 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         authenticationViewModel.loginResult.observe(viewLifecycleOwner) { response ->
-            if (response.error == false) {
-                AlertDialog.Builder(requireContext()).apply {
-                    setMessage(response.message)
-                    setPositiveButton("Lanjut") { _, _ ->
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        requireActivity().finish()
-                    }
-                    create()
-                    show()
+            val alertDialog = MaterialAlertDialogBuilder(requireContext())
+                .setMessage("login success")
+                .setPositiveButton(getString(R.string.next)) { _, _ ->
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    requireActivity().finish()
                 }
+                .create()
+
+            if (response.status == "success") {
+                alertDialog.setOnDismissListener {
+                    dismiss()
+                }
+                alertDialog.show()
             } else {
-                (activity as AuthenticationActivity).showToast(response.message ?: "Gagal login")
+                (activity as AuthenticationActivity).showToast(response.message ?: getString(R.string.failed_login))
             }
         }
 
         authenticationViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             (activity as AuthenticationActivity).showLoading(isLoading)
+            showLoading(isLoading)
         }
 
         setupAction()
@@ -101,7 +105,6 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun setupAction() {
         binding.btnLogin.setOnClickListener {
-            dismiss()
             val inputMethodManager = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
@@ -114,8 +117,32 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun login(email: String, password: String) {
-        authenticationViewModel.login(email, password)
+        val loginRequest = LoginRequest(email, password)
+        authenticationViewModel.login(loginRequest)
     }
+
+    private fun showLoading(isLoading: Boolean) {
+        val progressBar = view?.findViewById<ProgressBar>(R.id.progressBarLogin)
+        val dimmingView = view?.findViewById<View>(R.id.dimmingViewLogin)
+
+        if (progressBar == null || dimmingView == null) {
+            return
+        }
+
+        if (isLoading) {
+            progressBar.visibility = View.VISIBLE
+            dimmingView.visibility = View.VISIBLE
+            requireActivity().window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            progressBar.visibility = View.GONE
+            dimmingView.visibility = View.GONE
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

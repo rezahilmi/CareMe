@@ -5,7 +5,7 @@
     <string name="our_service">Our Services</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
-    <string name="email">Email Adress</string>
+    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="phone_number">Phone Number</string>
@@ -26,6 +26,12 @@
     <string name="nama_penyakit">Nama Penyakit</string>
     <string name="dont_have_acc">Don\'t have an account? Register</string>
     <string name="password_8_character">Password must not be less than 8 characters</string>
+    <string name="name_required">Name is required</string>
+    <string name="email_required">Email is required</string>
     <string name="password_required">Password is required</string>
     <string name="invalid_email">Invalid email</string>
+    <string name="name">Name</string>
+    <string name="next">Next</string>
+    <string name="failed_register">Failed to register account</string>
+    <string name="failed_login">Failed to login</string>
 </resources>

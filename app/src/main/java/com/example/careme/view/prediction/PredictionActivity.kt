@@ -1,9 +1,8 @@
-package com.example.careme.view.detection
+package com.example.careme.view.prediction
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,16 +15,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
-import com.example.careme.R
 import com.example.careme.databinding.ActivityDetectionBinding
 import com.example.careme.view.ViewModelFactory
-import com.example.careme.view.detection.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.careme.view.prediction.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.careme.view.result.ResultActivity
-import com.google.android.gms.location.FusedLocationProviderClient
 
-class DetectionActivity : AppCompatActivity() {
+class PredictionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetectionBinding
-    private lateinit var detectionViewModel: DetectionViewModel
+    private lateinit var predictionViewModel: PredictionViewModel
 
     private var currentImageUri: Uri? = null
 
@@ -53,7 +50,7 @@ class DetectionActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         val factory = ViewModelFactory.getInstance(this)
-        detectionViewModel = ViewModelProvider(this, factory)[DetectionViewModel::class.java]
+        predictionViewModel = ViewModelProvider(this, factory)[PredictionViewModel::class.java]
 
 
         if (!allPermissionsGranted()) {

@@ -1,4 +1,4 @@
-package com.example.careme.view.detection
+package com.example.careme.view.prediction
 
 import android.content.Intent
 import android.os.Build

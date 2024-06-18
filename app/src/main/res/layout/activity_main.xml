@@ -20,17 +20,19 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/login_text"
+        android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
         android:layout_marginTop="60dp"
         android:text="@string/dashboard"
         android:textColor="@color/blue"
         android:textSize="40sp"
         android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/services_text"
@@ -43,7 +45,7 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_text" />
+        app:layout_constraintTop_toTopOf="@+id/welcome_text" />
 
     <Button
         android:id="@+id/scanButton"

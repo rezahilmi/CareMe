@@ -20,7 +20,7 @@
         android:theme="@style/Theme.CareMe"
         tools:targetApi="31">
         <activity
-            android:name=".view.detection.CameraActivity"
+            android:name=".view.prediction.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".view.welcome.WelcomeActivity"
@@ -32,7 +32,7 @@
             android:name=".view.result.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".view.detection.DetectionActivity"
+            android:name=".view.prediction.PredictionActivity"
             android:exported="false" />
         <activity
             android:name=".view.main.MainActivity"

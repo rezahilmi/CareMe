@@ -2,8 +2,11 @@ package com.example.careme.data
 
 import com.example.careme.data.pref.UserModel
 import com.example.careme.data.pref.UserPreference
-import com.example.storyapp.data.network.ApiService
+import com.example.careme.data.network.ApiService
 import com.example.careme.data.network.LoginResponse
+import com.example.careme.data.network.dataModel.RegisterRequest
+import com.example.careme.data.network.RegisterResponse
+import com.example.careme.data.network.dataModel.LoginRequest
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository private constructor(
@@ -11,18 +14,18 @@ class UserRepository private constructor(
     private val userPreference: UserPreference
 ) {
 
-//    suspend fun registerUser(name: String, email: String, password: String): RegisterResponse {
-//        return apiService.register(name, email, password)
-//    }
+    suspend fun registerUser(registerRequest: RegisterRequest): RegisterResponse {
+        return apiService.register(registerRequest)
+    }
 
-    suspend fun loginUser(email: String, password: String): LoginResponse {
-        val loginResponse = apiService.login(email, password)
-        if (loginResponse.error == false) {
+    suspend fun loginUser(loginRequest: LoginRequest): LoginResponse {
+        val loginResponse = apiService.login(loginRequest)
+        if (loginResponse.status == "success") {
             userPreference.saveSession(
                 UserModel(
-                    loginResponse.loginResult?.userId ?: "",
-                    loginResponse.loginResult?.name ?: "",
-                    loginResponse.loginResult?.token ?: ""
+                    loginResponse.result?.id ?: "",
+                    loginResponse.result?.name ?: "",
+                    loginResponse.result?.token ?: ""
                 )
             )
         }

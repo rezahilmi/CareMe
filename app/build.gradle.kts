@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
+        buildConfigField("String", "BASE_URL", "\"https://6302-2001-448a-50e0-fc6c-6cf9-66b5-5dfe-8e5c.ngrok-free.app/\"")
         applicationId = "com.example.careme"
         minSdk = 24
         targetSdk = 34
