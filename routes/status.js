@@ -1,24 +1,22 @@
 const express = require('express');
+const { predict } = require('../handler/predict');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    if (req.session.user) {
-        res.json({
-            result: 'success',
-            data: req.session.user,
-        });
-    } else {
-        res.json({
-            result: 'success',
-            endpointForLogin: '/login',
-            endpointForLogout: '/logout'
-        });
-    }
+    return res.json({
+        status: 'success',
+        message: 'Wellcome to CareMe API',
+        endpoint: {
+            register: 'POST /register',
+            login: 'POST /login',
+            predict: 'POST /predict',
+        }
+    })
 });
 
 router.get('/status', (req, res) => {
-    res.send({
-        status: 'Ok'
+    return res.send({
+        status: 'success'
     });
 });
 

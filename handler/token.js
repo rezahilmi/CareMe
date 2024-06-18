@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    const [type, token] = authHeader.split(' ');
-    if (!type || !token) {
+    if (!authHeader) {
         return res.status(401).json({
             status: 'failed',
             message: 'No token provided',
         });
     }
+    const [type, token] = authHeader.split(' ');
     if (type != 'Bearer') {
         return res.status(401).json({
             status: 'failed',
@@ -30,7 +30,8 @@ const verifyToken = (req, res, next) => {
             });
         }
 
-        // console.log('User: ', decodedUser);
+        req.user = decodedUser;
+        // console.log('USER DI JWT', req.user);
         next();
     });
 }

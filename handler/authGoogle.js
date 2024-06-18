@@ -42,8 +42,8 @@ const loginGoogleCallback = async (req, res) => {
             email: payload.email,
         };
         try {
-            storeUserData(payload.sub, data);
-            updateUserLastLogin(payload.sub);
+            await storeUserData(payload.sub, data);
+            await updateUserLastLogin(payload.sub);
         } catch (error) {
             res.status(500).json({
                 status: 'failed',

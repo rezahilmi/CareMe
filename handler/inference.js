@@ -9,7 +9,7 @@ const loadModel = async () => {
         return model;
     } catch (error) {
         console.log('Cannot load model!');
-        // console.log(error);
+        console.log(error);
         return;
     }
 }
