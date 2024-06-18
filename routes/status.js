@@ -1,11 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const timeLog = (req, res, next) => {
-    console.log('Time: ', Date.now().toLocaleString());
-    next();
-};
-router.use(timeLog);
+router.get('/', (req, res) => {
+    if (req.session.user) {
+        res.json({
+            result: 'success',
+            data: req.session.user,
+        });
+    } else {
+        res.json({
+            result: 'success',
+            endpointForLogin: '/login',
+            endpointForLogout: '/logout'
+        });
+    }
+});
 
 router.get('/status', (req, res) => {
     res.send({

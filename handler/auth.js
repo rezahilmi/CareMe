@@ -1,38 +1,47 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const { storeData, checkUserExist, checkUserInfoValid } = require('../object/firestore');
-const { verifyToken } = require('./verify');
+const {
+    storeUserData,
+    checkUserExist,
+    updateUserLastLogin,
+    checkUserDataValid,
+    getUserData } = require('../object/firestore');
+const { createToken } = require('./token');
 
 const register = async (req, res) => {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+        return res.status(400).json({
+            status: 'failed',
+            message: 'Please provide email & password',
+        });
+    }
     try {
         const userExist = await checkUserExist(email);
         if (userExist) {
             return res.status(400).json({
                 status: 'failed',
-                message: 'User already exists'
+                message: 'User already exists',
             });
         }
 
         const id = crypto.randomUUID();
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        const createdAt = new Date().toISOString();
+        // const createdAt = new Date().toISOString();
         const data = {
             id,
+            name,
             email,
             password: hashedPassword,
-            createdAt,
-            lastLogin: createdAt,
         };
         try {
-            await storeData(id, data);
+            storeUserData(id, data);
+            updateUserLastLogin(id);
         } catch (error) {
             res.status(500).json({
                 status: 'failed',
-                message: 'Something wrong when inserting data'
+                message: 'Something is wrong when inserting data'
             });
         }
         res.status(201).json({
@@ -50,24 +59,25 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const valid = await checkUserInfoValid(email, password);
+        const { valid, id } = await checkUserDataValid(email, password);
         if (!valid) {
             return res.status(400).json({
                 status: 'failed',
                 message: 'Invalid email or password'
             });
         }
-
-        const token = jwt.sign({
-            uid: userSnapshot.docs[0].id,
-            email: user.email
-        }, process.env.JWT_SECRET, { expiresIn: '7d' });
-
-        res.json({ token });
+        updateUserLastLogin(id);
+        const userData = await getUserData(id);
+        const token = createToken(userData);
+        res.json({
+            status: 'success',
+            message: 'Login success please use the token',
+            token
+        });
     } catch (error) {
         res.status(500).json({
             status: 'failed',
-            message: 'Internal server error'
+            message: 'Internal server error',
         });
     }
 };

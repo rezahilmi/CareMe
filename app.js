@@ -2,11 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 
+const { loadModel } = require('./handler/inference');
+
 const app = express();
 const port = 3000;
 const host = process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0';
 
-const testRoute = require('./routes/auth');
+const auth = require('./routes/auth');
+const predict = require('./routes/predict');
+const status = require('./routes/status');
 
 app.use(express.json());
 
@@ -19,7 +23,11 @@ app.use(session({
     },
 }));
 
-app.use('/', testRoute);
+app.use('/', auth);
+app.use('/', predict);
+app.use('/', status);
+
+loadModel();
 
 app.listen(port, host, () => {
     console.log(`Server listening on port ${port}`);
