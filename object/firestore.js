@@ -8,7 +8,6 @@ const firestore = new Firestore({
 });
 
 const checkUserExist = async (email) => {
-    // console.log((await usersCollection.get()).docs);
     const usersCollection = firestore.collection('users');
     const userSnapshot = await usersCollection.where('email', '==', email).get();
     return !userSnapshot.empty;
@@ -59,13 +58,15 @@ const addPredictResult = async (idUser, data) => {
     const historyData = {
         id,
         imageUrl: data.imageUrl,
-        result: data.result,
+        predictionResult: data.predictionResult,
+        description: data.description,
         recommendation: data.recommendation,
         timestamp: new Date().toISOString(),
     };
-    return await usersCollection.doc(idUser).update({
+    await usersCollection.doc(idUser).update({
         history: FieldValue.arrayUnion(historyData),
     });
+    return id;
 }
 
 module.exports = {

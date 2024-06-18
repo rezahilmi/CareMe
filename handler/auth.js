@@ -1,6 +1,7 @@
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const { createToken } = require('./token');
 const {
     storeUserData,
     checkUserExist,
@@ -8,7 +9,6 @@ const {
     checkUserDataValid,
     getUserData, 
     getUserIdFromEmail } = require('../object/firestore');
-const { createToken } = require('./token');
 
 const register = async (req, res) => {
     const { name, email, password } = req.body;
@@ -49,14 +49,14 @@ const register = async (req, res) => {
         return res.status(201).json({
             status: 'success',
             message: 'User registered successfully',
-            data: {
+            result: {
                 id,
                 name,
             }
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        res.status(500).json({
             status: 'failed',
             message: 'Internal server error'
         });
@@ -80,7 +80,7 @@ const login = async (req, res) => {
         res.json({
             status: 'success',
             message: 'Login success please use the token',
-            data: {
+            result: {
                 token,
                 id,
                 name: userData.name,

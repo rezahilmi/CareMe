@@ -1,10 +1,10 @@
 const oauth2Client = require('../object/oauth');
+const { createToken } = require('./token');
 const {
     updateUserLastLogin,
     getUserData,
     storeUserData,
 } = require('../object/firestore');
-const { createToken } = require('./token');
 
 const loginGoogle = (req, res) => {
     const url = oauth2Client.generateAuthUrl({
@@ -63,10 +63,12 @@ const loginGoogleCallback = async (req, res) => {
         const userData = await getUserData(payload.sub);
         console.log(userData);
         const token = createToken(userData);
-        return res.json({
+        res.json({
             status: 'success',
             message: 'Login success please use the token',
-            token
+            result: {
+                token
+            }
         });
         // req.session.user = payload;
     } catch (error) {

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
-const { getOrCreateBucket } = require('../object/bucket');
 const path = require('path');
+const { getOrCreateBucket } = require('../object/bucket');
 const { addPredictResult, getUserIdFromEmail } = require('../object/firestore');
 
 // const file = {
@@ -18,7 +18,7 @@ const predict = async (req, res) => {
         return res.status(400).json({
             status: 'failed',
             message: 'No image uploaded',
-        })
+        });
     }
     const ext = path.extname(file.originalname).toLowerCase();
     if (!(ext == '.png' || ext == '.jpg' || ext == '.jpeg')) {
@@ -43,31 +43,26 @@ const predict = async (req, res) => {
 
         const data = {
             imageUrl,
-            result: 'Unknown (placeholder)',
+            predictionResult: 'Unknown (placeholder)',
+            description: 'Unknown (placeholder)',
             recommendation: 'Unknown (placeholder)',
         }
         const idUser = await getUserIdFromEmail(user.email);
-        await addPredictResult(idUser, data);
+        const id = await addPredictResult(idUser, data);
         return res.json({
             status: 'success',
-            message: 'Model berhasil memprediksi',
-            data
-        })
-
+            message: 'Model predicted successfully',
+            result: {
+                id,
+                ...data,
+            }
+        });
     } catch (error) {
         return res.status(500).json({
             status: 'failed',
             message: 'Error when trying upload to bucket'
-        })
+        });
     }
-
-    // console.log(req);
-
-    // return res.json({
-    //     status: 'success',
-    //     message: 'Predict success',
-    //     data: 'This is a placeholder'
-    // });
-}
+};
 
 module.exports = { predict }

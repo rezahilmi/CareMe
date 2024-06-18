@@ -7,7 +7,7 @@ const {
     getHistoryById,
 } = require('../handler/history');
 
-router.get('./history', verifyToken, getAllHistory);
-router.get('./history/:id', verifyToken, getHistoryById);
+router.get('/history', verifyToken, getAllHistory);
+router.get('/history/:historyId', verifyToken, getHistoryById);
 
 module.exports = router;
