@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const path = require('path');
 const { getOrCreateBucket } = require('../object/bucket');
 const { addPredictResult, getUserIdFromEmail } = require('../object/firestore');
+const { predictModel } = require('./inference');
 
 // const file = {
 //     fieldname: 'image',
@@ -28,24 +29,41 @@ const predict = async (req, res) => {
         });
     }
     try {
-        const bucket = await getOrCreateBucket();
-        const gcsFileName = `uploads/${crypto.randomBytes(16).toString('hex')}`;
-        bucket.file(gcsFileName).save(file.buffer, {
-            destination: gcsFileName,
-            gzip: true,
-            metadata: {
-                contentType: file.mimetype,
-            }
-        });
-        const imageUrl = `https://storage.googleapis.com/${bucket.name}/${gcsFileName}`;
+        let imageUrl = null;
+        try {
+            const bucket = await getOrCreateBucket();
+            const gcsFileName = `uploads/${crypto.randomBytes(16).toString('hex')}`;
+            bucket.file(gcsFileName).save(file.buffer, {
+                destination: gcsFileName,
+                gzip: true,
+                metadata: {
+                    contentType: file.mimetype,
+                }
+            });
+            imageUrl = `https://storage.googleapis.com/${bucket.name}/${gcsFileName}`;
+        } catch (error) {
+            return res.status(500).json({
+                status: 'failed',
+                message: 'Error when trying upload to bucket'
+            });
+        }
 
-        // Prediksi
+        let prediction = null;
+        try {
+            prediction = await predictModel(file.buffer);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                status: 'failed',
+                message: 'Error when trying to get prediction',
+            });
+        }
 
         const data = {
             imageUrl,
-            predictionResult: 'Unknown (placeholder)',
-            description: 'Unknown (placeholder)',
-            recommendation: 'Unknown (placeholder)',
+            predictionResult: prediction.predictionResult,
+            description: prediction.description,
+            recommendation: prediction.recommendation,
         }
         const idUser = await getUserIdFromEmail(user.email);
         const id = await addPredictResult(idUser, data);
@@ -60,7 +78,7 @@ const predict = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             status: 'failed',
-            message: 'Error when trying upload to bucket'
+            message: 'Internal server error'
         });
     }
 };
