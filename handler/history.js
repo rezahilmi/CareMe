@@ -6,9 +6,9 @@ const getAllHistory = async (req, res) => {
         const idUser = await getUserIdFromEmail(user.email);
         const { history } = await getUserData(idUser);
         const summaryHistory = history.map((entry) => ({
+            id: entry.id,
             imageUrl: entry.imageUrl,
             predictionResult: entry.predictionResult,
-            description: entry.description,
         }));
         return res.json({
             status: 'success',

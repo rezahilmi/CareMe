@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
             register: 'POST /register',
             login: 'POST /login',
             predict: 'POST /predict',
-            history: 'POST /history',
-            specificHistory: 'POST /history/{id}',
+            history: 'GET /history',
+            specificHistory: 'GET /history/{historyId}',
         }
     })
 });

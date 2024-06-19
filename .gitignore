@@ -1,5 +1,6 @@
 /node_modules
 /key
 /models
+/test_image
 
 .env
