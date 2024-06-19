@@ -5,12 +5,12 @@ const session = require('express-session');
 const { loadModel } = require('./handler/inference');
 
 const app = express();
-const port = 3000;
+const port = process.env.NODE_ENV !== 'production' ? 3000 : process.env.PORT;
 const host = process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0';
 
 const auth = require('./routes/auth');
 const predict = require('./routes/predict');
-const status = require('./routes/status');
+const home = require('./routes/home');
 const history = require('./routes/history');
 
 app.use(express.json());
@@ -26,7 +26,7 @@ app.use(session({
 
 app.use('/', auth);
 app.use('/', predict);
-app.use('/', status);
+app.use('/', home);
 app.use('/', history);
 
 loadModel();

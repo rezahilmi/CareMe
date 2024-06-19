@@ -5,11 +5,14 @@ const getAllHistory = async (req, res) => {
     try {
         const idUser = await getUserIdFromEmail(user.email);
         const { history } = await getUserData(idUser);
-        const summaryHistory = history.map((entry) => ({
-            id: entry.id,
-            imageUrl: entry.imageUrl,
-            predictionResult: entry.predictionResult,
-        }));
+        let summaryHistory = [];
+        if (history) {
+            summaryHistory = history.map((entry) => ({
+                id: entry.id,
+                imageUrl: entry.imageUrl,
+                predictionResult: entry.predictionResult,
+            }));
+        }
         return res.json({
             status: 'success',
             message: 'History retreived successfully',
@@ -29,9 +32,12 @@ const getHistoryById = async (req, res) => {
     try {
         const idUser = await getUserIdFromEmail(user.email);
         const { history } = await getUserData(idUser);
-        const specificHistory = history.find((entry) => {
-            return entry.id == historyId;
-        });
+        let specificHistory = null;
+        if (history) {
+            specificHistory = history.find((entry) => {
+                return entry.id == historyId;
+            });
+        }
         if (!specificHistory) {
             return res.status(404).json({
                 status: 'failed',

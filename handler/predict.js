@@ -52,7 +52,6 @@ const predict = async (req, res) => {
         try {
             prediction = await predictModel(file.buffer);
         } catch (error) {
-            console.log(error);
             return res.status(500).json({
                 status: 'failed',
                 message: 'Error when trying to get prediction',

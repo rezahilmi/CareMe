@@ -1,4 +1,3 @@
-require('dotenv').config();
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const { createToken } = require('./token');
@@ -8,7 +7,8 @@ const {
     updateUserLastLogin,
     checkUserDataValid,
     getUserData, 
-    getUserIdFromEmail } = require('../object/firestore');
+    getUserIdFromEmail
+} = require('../object/firestore');
 
 const register = async (req, res) => {
     const { name, email, password } = req.body;
@@ -29,8 +29,6 @@ const register = async (req, res) => {
 
         const id = crypto.randomUUID();
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log('After hash');
-        // const createdAt = new Date().toISOString();
         const data = {
             id,
             name,
@@ -55,7 +53,6 @@ const register = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             status: 'failed',
             message: 'Internal server error'
@@ -87,7 +84,6 @@ const login = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             status: 'failed',
             message: 'Internal server error',

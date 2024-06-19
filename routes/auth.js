@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-    loginGoogle,
-    loginGoogleCallback,
-} = require('../handler/authGoogle');
-const {
-    register,
-    login,
-} = require('../handler/auth');
+const { loginGoogle, loginGoogleCallback } = require('../handler/authGoogle');
+const { register, login } = require('../handler/auth');
 
 router.post('/register', register);
 router.post('/login', login);

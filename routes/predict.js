@@ -1,7 +1,7 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 
-const multer = require('multer');
 const upload = multer();
 
 const { predict } = require('../handler/predict');

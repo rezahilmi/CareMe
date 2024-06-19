@@ -5,7 +5,8 @@ let model = null;
 const loadModel = async () => {
     try {
         console.log('Loading model...');
-        const url = process.env.NODE_ENV !== 'production' ? 'file://models/model.json' : process.env.MODEL_URL;
+        // const url = process.env.NODE_ENV !== 'production' ? 'file://models/model.json' : process.env.MODEL_URL;
+        const url = process.env.MODEL_URL;
         model = await tfjs.loadGraphModel(url);
         console.log('Model loaded!');
         // return model;
