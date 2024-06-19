@@ -12,6 +12,7 @@ const auth = require('./routes/auth');
 const predict = require('./routes/predict');
 const home = require('./routes/home');
 const history = require('./routes/history');
+const { errorHandling } = require('./handler/multerHelper');
 
 app.use(express.json());
 
@@ -28,6 +29,7 @@ app.use('/', auth);
 app.use('/', predict);
 app.use('/', home);
 app.use('/', history);
+app.use(errorHandling);
 
 loadModel();
 

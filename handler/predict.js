@@ -4,15 +4,6 @@ const { getOrCreateBucket } = require('../object/bucket');
 const { addPredictResult, getUserIdFromEmail } = require('../object/firestore');
 const { predictModel } = require('./inference');
 
-// const file = {
-//     fieldname: 'image',
-//     originalname: '2023-02-19-Selasa-SS.png',
-//     encoding: '7bit',
-//     mimetype: 'image/png',
-//     buffer: 00 00 00 00,
-//     size: 638403
-// }
-
 const predict = async (req, res) => {
     const { file, user } = req;
     if (!file) {

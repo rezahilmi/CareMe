@@ -5,15 +5,11 @@ let model = null;
 const loadModel = async () => {
     try {
         console.log('Loading model...');
-        // const url = process.env.NODE_ENV !== 'production' ? 'file://models/model.json' : process.env.MODEL_URL;
         const url = process.env.MODEL_URL;
         model = await tfjs.loadGraphModel(url);
         console.log('Model loaded!');
-        // return model;
     } catch (error) {
         console.log('Cannot load model!');
-        // console.log(error);
-        // return;
     }
 }
 
@@ -27,10 +23,8 @@ const predictModel = async (image) => {
         .expandDims()
         .toFloat()
         .sub([123.68, 116.779, 103.939]);
-    
-    console.log(tensor.toString());
+
     const result = await model.predict(tensor).data();
-    console.log(result);
     return getPredictionData(result);
 }
 
