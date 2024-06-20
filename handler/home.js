@@ -28,7 +28,7 @@ const getInfo = (req, res) => {
                     authorization: 'Bearer <token>',
                 },
                 requestBody: {
-                    image: 'image',
+                    image: 'image (jpg, jpeg, png)',
                 },
             },
             history: {
@@ -37,6 +37,10 @@ const getInfo = (req, res) => {
                 headers: {
                     authorization: 'Bearer <token>',
                 },
+                parameters: {
+                    page: 'integer (optional)',
+                    size: 'integer (optional)',
+                }
             },
             specificHistory: {
                 url: '/history/:historyId',

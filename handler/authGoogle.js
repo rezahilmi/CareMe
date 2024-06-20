@@ -18,7 +18,6 @@ const loginGoogleCallback = async (req, res) => {
     const { code, state, error } = req.query;
 
     if (error) {
-        console.log('First error redirect');
         return res.redirect(state == 'login' ? '/login/google' : '/');
     }
     try {
@@ -47,7 +46,6 @@ const loginGoogleCallback = async (req, res) => {
         }
         
         const userData = await getUserData(payload.sub);
-        console.log(userData);
         const token = createToken(userData);
         res.json({
             status: 'success',

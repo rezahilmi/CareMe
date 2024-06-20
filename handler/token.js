@@ -31,7 +31,6 @@ const verifyToken = (req, res, next) => {
         }
 
         req.user = decodedUser;
-        // console.log('USER DI JWT', req.user);
         next();
     });
 }
