@@ -4,55 +4,54 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.careme.R
-import com.example.careme.databinding.ActivityHistoryBinding
+import com.example.careme.data.network.SpecificHistoryResult
+import com.example.careme.databinding.ActivitySpecificHistoryBinding
 import com.example.careme.view.ViewModelFactory
 
-class HistoryActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHistoryBinding
-    private lateinit var recyclerView: RecyclerView
+class SpecificHistoryActivity : AppCompatActivity() {
+
+    companion object {
+        const val KEY_ID = "story_id"
+    }
+    private lateinit var binding: ActivitySpecificHistoryBinding
     private lateinit var historyViewModel: HistoryViewModel
-    private lateinit var toolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityHistoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.rvHistory.layoutManager = GridLayoutManager(this, 2)
-
-        setContentView(R.layout.activity_history)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.history)) { v, insets ->
+        setContentView(R.layout.activity_specific_history)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val factory = ViewModelFactory.getInstance(this)
         historyViewModel = ViewModelProvider(this, factory)[HistoryViewModel::class.java]
 
+        val historyId = intent.getStringExtra(KEY_ID)
+        if (historyId != null) {
+            historyViewModel.fetchDetailHistory(historyId)
+            historyViewModel.historyDetail.observe(this) { response ->
+                response?.let { specificHistoryResponse ->
+                    specificHistoryResponse.result?.let { result ->
+                        setSpecificHistoryData(result)
+                    }
+                }
+            }
+        }
         historyViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
         }
-
-        getData()
     }
-    private fun getData() {
-        val adapter = HistoryAdapter()
-        binding.rvHistory.adapter = adapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                adapter.retry()
-            }
-        )
-        historyViewModel.historyList.observe(this) {
-            adapter.submitData(lifecycle, it)
-        }
+    private fun setSpecificHistoryData(history: SpecificHistoryResult) {
+        binding.titleTextView.text = history.predictionResult
+        Glide.with(this).load(history.imageUrl).into(binding.resultHistoryImage)
     }
 
     private fun showLoading(isLoading: Boolean) {

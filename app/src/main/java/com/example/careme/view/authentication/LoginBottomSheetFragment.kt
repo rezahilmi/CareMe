@@ -77,7 +77,6 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
                     intent.flags =
                         Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
-                    requireActivity().finish()
                 }
                 .create()
 
@@ -122,23 +121,23 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        val progressBar = view?.findViewById<ProgressBar>(R.id.progressBarLogin)
-        val dimmingView = view?.findViewById<View>(R.id.dimmingViewLogin)
-
-        if (progressBar == null || dimmingView == null) {
-            return
-        }
 
         if (isLoading) {
-            progressBar.visibility = View.VISIBLE
-            dimmingView.visibility = View.VISIBLE
+            binding.btnLogin.isEnabled = false
+            binding.emailEditTextLayout.isEnabled = false
+            binding.passwordEditTextLayout.isEnabled = false
+            binding.progressBarLogin.visibility = View.VISIBLE
+            binding.dimmingViewLogin.visibility = View.VISIBLE
             requireActivity().window.setFlags(
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
             )
         } else {
-            progressBar.visibility = View.GONE
-            dimmingView.visibility = View.GONE
+            binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
+            binding.emailEditTextLayout.isEnabled = true
+            binding.passwordEditTextLayout.isEnabled = true
+            binding.progressBarLogin.visibility = View.GONE
+            binding.dimmingViewLogin.visibility = View.GONE
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }
     }

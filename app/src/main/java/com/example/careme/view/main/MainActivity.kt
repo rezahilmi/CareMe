@@ -5,6 +5,10 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.careme.R
 import com.example.careme.databinding.ActivityMainBinding
 import com.example.careme.view.ViewModelFactory
 import com.example.careme.view.authentication.AuthenticationActivity
@@ -16,11 +20,20 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityMainBinding
+    private lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
@@ -34,6 +47,19 @@ class MainActivity : AppCompatActivity() {
         }
         binding.historyButton.setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
+        }
+        setupAction()
+    }
+    private fun setupAction() {
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_logout -> {
+                    viewModel.logout()
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 }

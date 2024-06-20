@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -8,7 +9,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        buildConfigField("String", "BASE_URL", "\"https://6302-2001-448a-50e0-fc6c-6cf9-66b5-5dfe-8e5c.ngrok-free.app/\"")
+        buildConfigField("String", "BASE_URL", "\"https://care-me-backend-k7yvugjo4q-et.a.run.app/\"")
         applicationId = "com.example.careme"
         minSdk = 24
         targetSdk = 34
@@ -33,10 +34,25 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs.toList() + listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
     buildFeatures {
+        compose = true
         viewBinding = true
         buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    testOptions {
+        unitTests{
+            isReturnDefaultValues = true
+        }
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -49,6 +65,11 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation (libs.androidx.constraintlayout)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.paging.common.android)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.paging.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,5 +89,14 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
+
+    implementation(libs.justifiedtextview)
+    implementation(libs.glide)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    ksp(libs.room.compiler)
 }
 

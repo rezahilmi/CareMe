@@ -3,13 +3,13 @@ package com.example.careme.data.network
 import com.example.careme.data.network.dataModel.LoginRequest
 import com.example.careme.data.network.dataModel.RegisterRequest
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -23,22 +23,18 @@ interface ApiService {
         @Body loginRequest: LoginRequest
     ): LoginResponse
 
-//    @GET("stories")
-//    suspend fun getStories(
-//        @Query("page") page: Int,
-//        @Query("size") size: Int
-//    ): StoryResponse
-//    @GET("stories")
-//    suspend fun getStoriesWithLocation(
-//        @Query("location") location : Int = 1,
-//    ): StoryResponse
-//
-//    @GET("stories/{id}")
-//    suspend fun getDetailStory(@Path("id") id: String): DetailStoryResponse
-//
-//    @Multipart
-//    @POST("predict")
-//    suspend fun predict(
-//    @Part file: MultipartBody.Part
-//    ): PredictionResponse
+    @GET("history")
+    suspend fun getHistory(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): HistoryResponse
+
+    @GET("history/{id}")
+    suspend fun getSpecificHistory(@Path("id") id: String): SpecificHistoryResponse
+
+    @Multipart
+    @POST("predict")
+    suspend fun predict(
+    @Part file: MultipartBody.Part
+    ): PredictionResponse
 }

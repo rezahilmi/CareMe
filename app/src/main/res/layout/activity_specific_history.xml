@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/result"
+    android:id="@+id/specificHistory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.result.ResultActivity"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/resultImage"
+        android:id="@+id/resultHistoryImage"
         android:layout_width="0dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
@@ -34,35 +34,19 @@
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         app:srcCompat="@drawable/ic_place_holder" />
 
-    <Button
-        android:id="@+id/analyzeAgainButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="90dp"
-        android:backgroundTint="@android:color/white"
-        android:drawableLeft="@drawable/baseline_center_focus_strong_24"
-        android:text="@string/analyze_again"
-        android:textColor="@color/blue"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultImage" />
-
     <View
         android:id="@+id/backgroundView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="400dp"
         android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/analyzeAgainButton" />
+        app:layout_constraintTop_toBottomOf="@id/resultHistoryImage" />
 
     <TextView
-        android:id="@+id/resultDiseaseText"
+        android:id="@+id/rh_disease_text"
         android:layout_width="293dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
@@ -83,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/recommendationButton"
-        app:layout_constraintTop_toBottomOf="@id/resultDiseaseText">
+        app:layout_constraintTop_toBottomOf="@id/rh_disease_text">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,7 +75,7 @@
             android:orientation="vertical">
 
             <com.codesgood.views.JustifiedTextView
-                android:id="@+id/resultDescriptionText"
+                android:id="@+id/rh_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"

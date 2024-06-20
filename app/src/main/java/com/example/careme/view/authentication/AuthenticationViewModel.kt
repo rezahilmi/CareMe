@@ -47,8 +47,8 @@ class AuthenticationViewModel (private val userRepository: UserRepository) : Vie
                 _loginResult.value = response
             } catch (e: HttpException) {
                 val errorBody = e.response()?.errorBody()?.string()
-                val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
-                _loginResult.value = errorResponse
+//                val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
+//                _loginResult.value = errorResponse
             } finally {
                 _isLoading.value = false
             }

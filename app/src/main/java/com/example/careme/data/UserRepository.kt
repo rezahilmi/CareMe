@@ -1,17 +1,30 @@
 package com.example.careme.data
 
+import androidx.lifecycle.LiveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.example.careme.data.pref.UserModel
 import com.example.careme.data.pref.UserPreference
 import com.example.careme.data.network.ApiService
 import com.example.careme.data.network.LoginResponse
+import com.example.careme.data.network.PredictionResponse
 import com.example.careme.data.network.dataModel.RegisterRequest
 import com.example.careme.data.network.RegisterResponse
+import com.example.careme.data.network.ResultItem
+import com.example.careme.data.network.SpecificHistoryResponse
 import com.example.careme.data.network.dataModel.LoginRequest
+import com.example.careme.database.HistoryDatabase
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
 
 class UserRepository private constructor(
     private val apiService: ApiService,
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
+    private val historyDatabase: HistoryDatabase
+
 ) {
 
     suspend fun registerUser(registerRequest: RegisterRequest): RegisterResponse {
@@ -41,34 +54,34 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
-//    fun getStories(): LiveData<PagingData<ListStoryItem>> {
-//        @OptIn(ExperimentalPagingApi::class)
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = 20
-//            ),
-//            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
-//            pagingSourceFactory = {
-////                StoryPagingSource(apiService)
-//                storyDatabase.storyDao().getAllStory()
-//            }
-//        ).liveData
-//    }
+    fun getHistory(): LiveData<PagingData<ResultItem>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = HistoryRemoteMediator(historyDatabase, apiService),
+            pagingSourceFactory = {
+//                HistoryPagingSource(apiService)
+                historyDatabase.historyDao().getAllHistory()
+            }
+        ).liveData
+    }
 
 //    suspend fun getStoriesWithLocation(): StoryResponse {
 //        return apiService.getStoriesWithLocation()
 //    }
 //
-//    suspend fun getStoryDetail(id: String): DetailStoryResponse {
-//        return apiService.getDetailStory(id)
-//    }
-//
-//    suspend fun uploadImage(imageFile: MultipartBody.Part, description: RequestBody,lat: RequestBody?, lon: RequestBody?): UploadStoryResponse {
-//        return apiService.uploadImage(imageFile, description, lat, lon)
-//    }
+    suspend fun getSpecificHistory(id: String): SpecificHistoryResponse {
+        return apiService.getSpecificHistory(id)
+    }
+
+    suspend fun predict(imageFile: MultipartBody.Part): PredictionResponse {
+        return apiService.predict(imageFile)
+    }
 
     companion object {
         fun getInstance(apiService: ApiService,
-                        userPreference: UserPreference) = UserRepository(apiService, userPreference)
+                        userPreference: UserPreference, historyDatabase: HistoryDatabase) = UserRepository(apiService, userPreference, historyDatabase)
     }
 }

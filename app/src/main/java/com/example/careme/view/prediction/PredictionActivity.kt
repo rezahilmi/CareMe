@@ -14,14 +14,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.careme.databinding.ActivityDetectionBinding
+import com.example.careme.R
+import com.example.careme.data.ResultState
+import com.example.careme.databinding.ActivityPredictionBinding
 import com.example.careme.view.ViewModelFactory
 import com.example.careme.view.prediction.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.careme.view.result.ResultActivity
 
 class PredictionActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetectionBinding
+    private lateinit var binding: ActivityPredictionBinding
     private lateinit var predictionViewModel: PredictionViewModel
 
     private var currentImageUri: Uri? = null
@@ -45,9 +49,14 @@ class PredictionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetectionBinding.inflate(layoutInflater)
+        binding = ActivityPredictionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.prediction)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         val factory = ViewModelFactory.getInstance(this)
         predictionViewModel = ViewModelProvider(this, factory)[PredictionViewModel::class.java]
@@ -61,11 +70,7 @@ class PredictionActivity : AppCompatActivity() {
             galleryButton.setOnClickListener { startGallery() }
             cameraButton.setOnClickListener { startCamera() }
             cameraXButton.setOnClickListener { startCameraX() }
-//            analyzeButton.setOnClickListener { uploadImage() }
-        }
-
-        binding.analyzeButton.setOnClickListener {
-            startActivity(Intent(this, ResultActivity::class.java))
+            analyzeButton.setOnClickListener { predict() }
         }
     }
 
@@ -118,43 +123,50 @@ class PredictionActivity : AppCompatActivity() {
         }
     }
 
-//    private fun uploadImage() {
-//        currentImageUri?.let { uri ->
-//            val imageFile = uriToFile(uri, this).reduceFileImage()
-//            Log.d("Image File", "showImage: ${imageFile.path}")
-//
-//
-//            binding.analyzeButton.isEnabled = false
-//
-//            detectionViewModel.uploadImage(imageFile)
-//
-//            detectionViewModel.uploadResult.observe(this) { result ->
-//                if (result != null) {
-//                    when (result) {
-//                        is ResultState.Loading -> {
-//                            showLoading(true)
-//                        }
-//
-//                        is ResultState.Success -> {
-//                            result.data.message?.let { showToast(it) }
-//                            showLoading(false)
-//                            val intent = Intent(this, ResultActivity::class.java)
-//                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                            startActivity(intent)
-//                        }
-//
-//                        is ResultState.Error -> {
-//                            showToast(result.error)
-//                            showLoading(false)
-//                            binding.analyzeButton.isEnabled = true
-//                        }
-//                    }
-//                }
-//            }
-//        } ?: showToast(getString(R.string.empty_image_warning))
-//    }
+    private fun predict() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+
+
+            binding.analyzeButton.isEnabled = false
+
+            predictionViewModel.predict(imageFile)
+
+            predictionViewModel.predictResult.observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is ResultState.Loading -> {
+                            showLoading(true)
+                        }
+
+                        is ResultState.Success -> {
+                            result.data.message?.let { showToast(it) }
+                            showLoading(false)
+
+                            val predictResult = result.data.result
+                            val intent = Intent(this, ResultActivity::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                putExtra("predictionResult", predictResult?.predictionResult)
+                                putExtra("imageUrl", predictResult?.imageUrl)
+                                putExtra("description", predictResult?.description)
+                                putStringArrayListExtra("recommendation", ArrayList(predictResult?.recommendation!!))
+                            }
+                            startActivity(intent)
+                        }
+
+                        is ResultState.Error -> {
+                            showToast(result.error)
+                            showLoading(false)
+                            binding.analyzeButton.isEnabled = true
+                        }
+                    }
+                }
+            }
+        } ?: showToast(getString(R.string.empty_image_warning))
+    }
     private fun showLoading(isLoading: Boolean) {
-        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

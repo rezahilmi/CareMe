@@ -7,6 +7,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.careme.R
 import com.example.careme.databinding.ActivityAuthenticationBinding
 
@@ -17,6 +19,11 @@ class AuthenticationActivity : AppCompatActivity() {
         binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.authentication)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         binding.btnShowLogin.setOnClickListener {
             val loginBottomSheet = LoginBottomSheetFragment()
@@ -32,11 +39,8 @@ class AuthenticationActivity : AppCompatActivity() {
 //        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
 //    }
     fun showLoading(isLoading: Boolean) {
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val dimmingView = findViewById<View>(R.id.dimmingView)
         if (isLoading) {
-            progressBar.visibility = View.VISIBLE
-
             dimmingView.visibility = View.VISIBLE
 
             window.setFlags(
@@ -44,7 +48,6 @@ class AuthenticationActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
             )
         } else {
-            progressBar.visibility = View.GONE
             dimmingView.visibility = View.GONE
             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }

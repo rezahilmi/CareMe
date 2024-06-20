@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.careme.R
@@ -60,7 +61,9 @@ class RegisterBottomSheetFragment : BottomSheetDialogFragment()  {
                 .create()
 
             if (response.status == "success") {
-                dismiss()
+                alertDialog.setOnDismissListener {
+                    dismiss()
+                }
                 alertDialog.show()
             } else {
                 (activity as AuthenticationActivity).showToast(response.message ?: getString(R.string.failed_register))
@@ -69,6 +72,7 @@ class RegisterBottomSheetFragment : BottomSheetDialogFragment()  {
 
         authenticationViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             (activity as AuthenticationActivity).showLoading(isLoading)
+            showLoading(isLoading)
         }
 
         setupAction()
@@ -90,10 +94,32 @@ class RegisterBottomSheetFragment : BottomSheetDialogFragment()  {
             }
         }
 
-        private fun register(name: String, email: String, password: String) {
-            val registerRequest = RegisterRequest(name, email, password)
-            authenticationViewModel.register(registerRequest)
+    private fun register(name: String, email: String, password: String) {
+        val registerRequest = RegisterRequest(name, email, password)
+        authenticationViewModel.register(registerRequest)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+
+        if (isLoading) {
+            binding.btnRegister.isEnabled = false
+            binding.emailEditTextLayout.isEnabled = false
+            binding.passwordEditTextLayout.isEnabled = false
+            binding.progressBarLogin.visibility = View.VISIBLE
+            binding.dimmingViewLogin.visibility = View.VISIBLE
+            requireActivity().window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            binding.btnRegister.isEnabled = isEmailValid && isPasswordValid
+            binding.emailEditTextLayout.isEnabled = true
+            binding.passwordEditTextLayout.isEnabled = true
+            binding.progressBarLogin.visibility = View.GONE
+            binding.dimmingViewLogin.visibility = View.GONE
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

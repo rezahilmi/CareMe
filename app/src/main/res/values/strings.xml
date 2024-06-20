@@ -34,4 +34,8 @@
     <string name="next">Next</string>
     <string name="failed_register">Failed to register account</string>
     <string name="failed_login">Failed to login</string>
+    <string name="analyze_again">Analyze again?</string>
+    <string name="retry">Try again</string>
+    <string name="timeout">Timeout</string>
+    <string name="logout_text">Logout</string>
 </resources>
