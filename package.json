@@ -2,12 +2,12 @@
   "name": "careme-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
     "start": "NODE_ENV=production node app.js"
   },
-  "author": "",
+  "author": "Team C241-PS282",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/firestore": "^7.8.0",

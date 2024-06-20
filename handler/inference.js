@@ -1,3 +1,4 @@
+require('dotenv').config();
 const tfjs = require('@tensorflow/tfjs-node');
 
 let model = null;
@@ -6,9 +7,11 @@ const loadModel = async () => {
     try {
         console.log('Loading model...');
         const url = process.env.MODEL_URL;
+        console.log('MODEL URL:', url);
         model = await tfjs.loadGraphModel(url);
         console.log('Model loaded!');
     } catch (error) {
+        console.log(error);
         console.log('Cannot load model!');
     }
 }

@@ -1,6 +1,6 @@
-/node_modules
-/key
-/models
-/test_image
+node_modules/
+key/
+test_image/
+test_script/
 
 .env

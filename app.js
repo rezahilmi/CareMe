@@ -35,4 +35,5 @@ loadModel();
 
 app.listen(port, host, () => {
     console.log(`Server listening on port ${port}`);
+    // console.log('ENV LIST:\n', process.env);
 });
