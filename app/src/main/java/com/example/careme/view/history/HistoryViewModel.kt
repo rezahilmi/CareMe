@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class HistoryViewModel(private val repository: UserRepository) : ViewModel() {
+
     var historyList: LiveData<PagingData<ResultItem>> =
         repository.getHistory().cachedIn(viewModelScope)
 
@@ -34,8 +35,8 @@ class HistoryViewModel(private val repository: UserRepository) : ViewModel() {
                 val response = repository.getSpecificHistory(id)
                 _historyDetail.value = response
                 val errorBody = e.response()?.errorBody()?.string()
-//                val errorResponse = Gson().fromJson(errorBody, DetailStoryResponse::class.java)
-//                _storyDetail.value = errorResponse
+                val errorResponse = Gson().fromJson(errorBody, SpecificHistoryResponse::class.java)
+                _historyDetail.value = errorResponse
             } finally {
                 _isLoading.value = false
             }

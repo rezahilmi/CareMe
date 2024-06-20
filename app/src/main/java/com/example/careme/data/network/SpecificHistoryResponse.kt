@@ -26,7 +26,7 @@ data class SpecificHistoryResult(
 	val description: String? = null,
 
 	@field:SerializedName("recommendation")
-	val recommendation: String? = null,
+	val recommendation: List<String?>? = null,
 
 	@field:SerializedName("id")
 	val id: String? = null,

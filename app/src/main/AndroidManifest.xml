@@ -26,13 +26,13 @@
             android:name=".view.prediction.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".view.welcome.WelcomeActivity"
+            android:name=".view.main.MainActivity"
             android:exported="false" />
         <activity
             android:name=".view.history.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".view.result.ResultActivity"
+            android:name=".view.prediction.ResultActivity"
             android:exported="false" />
         <activity
             android:name=".view.prediction.PredictionActivity"
@@ -44,7 +44,7 @@
             android:name=".view.recommendation.RecommendationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.welcome.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -22,7 +23,6 @@ import com.example.careme.data.ResultState
 import com.example.careme.databinding.ActivityPredictionBinding
 import com.example.careme.view.ViewModelFactory
 import com.example.careme.view.prediction.CameraActivity.Companion.CAMERAX_RESULT
-import com.example.careme.view.result.ResultActivity
 
 class PredictionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPredictionBinding
@@ -148,7 +148,7 @@ class PredictionActivity : AppCompatActivity() {
                             val intent = Intent(this, ResultActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 putExtra("predictionResult", predictResult?.predictionResult)
-                                putExtra("imageUrl", predictResult?.imageUrl)
+                                putExtra("imageUrl", currentImageUri.toString())
                                 putExtra("description", predictResult?.description)
                                 putStringArrayListExtra("recommendation", ArrayList(predictResult?.recommendation!!))
                             }
@@ -166,7 +166,19 @@ class PredictionActivity : AppCompatActivity() {
         } ?: showToast(getString(R.string.empty_image_warning))
     }
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.dimmingView.visibility = View.VISIBLE
+
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.dimmingView.visibility = View.GONE
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
     }
 
     private fun showToast(message: String) {

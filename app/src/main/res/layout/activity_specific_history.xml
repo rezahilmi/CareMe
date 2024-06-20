@@ -5,7 +5,7 @@
     android:id="@+id/specificHistory"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.result.ResultActivity"
+    tools:context=".view.prediction.ResultActivity"
     android:background="@color/blue">
 
     <TextView
@@ -99,6 +99,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/dimmingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progressBar"

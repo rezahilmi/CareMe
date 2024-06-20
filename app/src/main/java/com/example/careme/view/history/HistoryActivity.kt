@@ -2,6 +2,7 @@ package com.example.careme.view.history
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -19,21 +20,22 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var historyViewModel: HistoryViewModel
-    private lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.rvHistory.layoutManager = GridLayoutManager(this, 2)
-
         setContentView(R.layout.activity_history)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.history)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.history) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        recyclerView = findViewById(R.id.rv_history)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+
         val factory = ViewModelFactory.getInstance(this)
         historyViewModel = ViewModelProvider(this, factory)[HistoryViewModel::class.java]
 
@@ -45,7 +47,7 @@ class HistoryActivity : AppCompatActivity() {
     }
     private fun getData() {
         val adapter = HistoryAdapter()
-        binding.rvHistory.adapter = adapter.withLoadStateFooter(
+        recyclerView.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             }
@@ -56,6 +58,18 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.dimmingView.visibility = View.VISIBLE
+
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.dimmingView.visibility = View.GONE
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
     }
 }

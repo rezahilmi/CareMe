@@ -2,6 +2,7 @@ package com.example.careme.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -32,8 +33,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
         setupAction()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
     private fun setupAction() {
         binding.toolbar.setOnMenuItemClickListener { item ->

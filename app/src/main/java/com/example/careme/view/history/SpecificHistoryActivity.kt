@@ -1,7 +1,9 @@
 package com.example.careme.view.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,6 +14,7 @@ import com.example.careme.R
 import com.example.careme.data.network.SpecificHistoryResult
 import com.example.careme.databinding.ActivitySpecificHistoryBinding
 import com.example.careme.view.ViewModelFactory
+import com.example.careme.view.recommendation.RecommendationActivity
 
 class SpecificHistoryActivity : AppCompatActivity() {
 
@@ -24,7 +27,9 @@ class SpecificHistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_specific_history)
+        binding = ActivitySpecificHistoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -48,13 +53,36 @@ class SpecificHistoryActivity : AppCompatActivity() {
         historyViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
         }
+        binding.recommendationButton.setOnClickListener{
+            val recommendation = binding.recommendationButton.tag as? ArrayList<String>
+            val intent = Intent(this, RecommendationActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                putStringArrayListExtra("recommendation", recommendation)
+            }
+            startActivity(intent)
+        }
     }
     private fun setSpecificHistoryData(history: SpecificHistoryResult) {
-        binding.titleTextView.text = history.predictionResult
+        binding.rhDiseaseText.text = history.predictionResult
+        binding.rhDescriptionText.text = history.description
         Glide.with(this).load(history.imageUrl).into(binding.resultHistoryImage)
+
+        binding.recommendationButton.tag = history.recommendation
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.dimmingView.visibility = View.VISIBLE
+
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.dimmingView.visibility = View.GONE
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
     }
 }
