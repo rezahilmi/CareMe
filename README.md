@@ -14,7 +14,7 @@ Here is our repository for Bangkit 2024 Capstone project - Mobile Development.
 
 ## Android Architecture
 - MVVM Architecture
-![WarasArchitecture](https://github.com/yuliusius1/waras-bangkit-capstone-2022/blob/main/assets/android_architecture.jpg)
+![WarasArchitecture](https://github.com/rezahilmi/CareMe/blob/android-md/CareMe%20Architecture.jpg)
 
 ## Our Features 
 - Splash Screen
