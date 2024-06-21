@@ -2,7 +2,7 @@
 
 ## Bangkit Capstone Project 2024
 
-Bangkit Capstone Team ID : : C241-PS282 <br>
+Bangkit Capstone Team ID : C241-PS282 <br>
 Here is our repository for Bangkit 2024 Capstone project - Mobile Development.
 
 ## Android Development Schedule
