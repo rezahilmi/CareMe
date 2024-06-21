@@ -8,10 +8,10 @@ Bangkit Capstone Project 2024
 | C006D4KY0278 | Muhammad Rafi Faisal |
 
 ## API Description
-This is source code API of the Backend Care Me that is used by our Care Me mobile application. This API is built using Node.js, Express framework, Jsonwebtoken, Google cloud library (Firestore & Storage), and Tensorflow.js. We use Jsonwebtoken for authorization when using the API to identify the user. We use Firestore as a user database and Cloud Storage Bucket to save uploaded image from user.
+This is source code API of the Backend CareMe that is used by our CareMe mobile application. This API is built using Node.js, Express framework, Jsonwebtoken, Google cloud library (Firestore & Storage), and Tensorflow.js. We use Jsonwebtoken for authorization when using the API to identify the user. We use Firestore as a user database and Cloud Storage Bucket to save uploaded image from user.
 
 ### API URL
-[Backend Care Me API](https://care-me-backend-k7yvugjo4q-et.a.run.app/)
+[Backend CareMe API](https://care-me-backend-k7yvugjo4q-et.a.run.app/)
 
 ### API Endpoints
 | Endpoint | Method | Request Body | Content-Type | Authorization | Query Parameters |
