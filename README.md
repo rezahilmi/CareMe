@@ -33,7 +33,7 @@ Here is our repository for Bangkit 2024 Capstone project - Mobile Development.
 
 ## Link Download Application
 Link Download APK CareMe:<br>
-[WarasAPK](https://drive.google.com/file/d/1wVjTRMInTKnyTM94Wkq7IVZ9DcXbRN_N/view?usp=sharing)
+[CareMe APK](https://drive.google.com/file/d/1wVjTRMInTKnyTM94Wkq7IVZ9DcXbRN_N/view?usp=sharing)
 
 
 ## Installation
