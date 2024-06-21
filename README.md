@@ -16,11 +16,14 @@ This is source code API of the Backend CareMe that is used by our CareMe mobile 
 ### API Endpoints
 | Endpoint | Method | Request Body | Content-Type | Authorization | Query Parameters |
 | -------- | ------ | ------------ | ------------ | ---- | ---- |
-| /register | POST | name, email, password | application/json | - | - |
-| /login | POST | email, password | application/json | - | - |
-| /predict | POST | image | multipart/form-data | Bearer <token> | - |
-| /history | GET | - | - | Bearer <token> | page, size |
-| /history/:historyId | GET | - | - | Bearer <token> | - |
+| ```/register``` | POST | name, email, password | application/json | - | - |
+| ```/login``` | POST | email, password | application/json | - | - |
+| ```/login/google``` | GET | - | - | - | - |
+| ```/predict``` | POST | image | multipart/form-data | Bearer \<token\> | - |
+| ```/history``` | GET | - | - | Bearer \<token\> | page, size |
+| ```/history/:historyId``` | GET | - | - | Bearer \<token\> | - |
+
+Note that endpoint ```/login/google``` are still experimental, though you can still access it to login with your google account and get the token.
 
 ## Running The Code
 
