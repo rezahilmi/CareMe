@@ -43,7 +43,6 @@ class ResultActivity : AppCompatActivity() {
 
         binding.recommendationButton.setOnClickListener{
             val intent = Intent(this, RecommendationActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 putStringArrayListExtra("recommendation", recommendation)
             }
             startActivity(intent)

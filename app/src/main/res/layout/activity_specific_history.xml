@@ -45,21 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resultHistoryImage" />
 
-    <TextView
-        android:id="@+id/rh_disease_text"
-        android:layout_width="293dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="monospace"
-        android:gravity="center"
-        android:text="@string/nama_penyakit"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/backgroundView" />
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -67,17 +52,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/recommendationButton"
-        app:layout_constraintTop_toBottomOf="@id/rh_disease_text">
+        app:layout_constraintTop_toTopOf="@id/backgroundView" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.codesgood.views.JustifiedTextView
-                android:id="@+id/rh_description_text"
+
+            <TextView
+                android:id="@+id/resultDiseaseText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:fontFamily="monospace"
+                android:layout_gravity="center"
+                android:text="@string/nama_penyakit"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <com.codesgood.views.JustifiedTextView
+                android:id="@+id/resultDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:textSize="20sp"
                 android:textColor="@android:color/black"
                 android:text="@string/deskripsi" />

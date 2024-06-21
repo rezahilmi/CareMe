@@ -56,7 +56,6 @@ class SpecificHistoryActivity : AppCompatActivity() {
         binding.recommendationButton.setOnClickListener{
             val recommendation = binding.recommendationButton.tag as? ArrayList<String>
             val intent = Intent(this, RecommendationActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 putStringArrayListExtra("recommendation", recommendation)
             }
             startActivity(intent)
