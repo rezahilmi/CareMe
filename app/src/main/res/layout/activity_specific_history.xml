@@ -61,7 +61,7 @@
 
 
             <TextView
-                android:id="@+id/resultDiseaseText"
+                android:id="@+id/rhDiseaseText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -74,7 +74,7 @@
                 android:textStyle="bold" />
 
             <com.codesgood.views.JustifiedTextView
-                android:id="@+id/resultDescriptionText"
+                android:id="@+id/rhDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
